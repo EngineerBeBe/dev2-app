@@ -25,5 +25,5 @@ jobs:
         run: |
           python -m pip install -e .
           python -m pip install -e .[lint]
-      -name: Lint code
+      - name: Lint code
         run: ruff check --output-format=github .
