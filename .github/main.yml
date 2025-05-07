@@ -1,0 +1,29 @@
+name: Pythin lint and test (LT)
+run-name: LT, triggered by ${{ github.actor}}
+
+on: 
+  push:
+    branches: 
+      - main
+  pull_reqquest:
+    branches: 
+      - main
+
+jobs: 
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with: 
+          fetch-depth: 0 # Fetch all history for all branches and tags
+      - name: Set up Python 
+        uses: actions/setup-python@v5
+        with: 
+          python-version: 3.13
+      - name: Install dependencies
+        run: |
+          python -m pip install -e .
+          python -m pip install -e .[lint]
+      -name: Lint code
+        run: ruff check --output-format=github .
